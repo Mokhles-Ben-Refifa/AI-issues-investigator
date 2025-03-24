@@ -1,0 +1,18 @@
+{
+    "Root Cause": "Exceeded maximum connections due to high traffic.",
+    "Log Classification": "Server",
+    "Explanation": {
+        "Log Message": "Worker process exceeded maximum connections (1024). Restarting worker...",
+        "Possible Causes": [
+            "Sudden traffic spike",
+            "Connection limit misconfiguration",
+            "Denial of Service (DoS) attack"
+        ],
+        "Detailed Root Cause Analysis": {
+            "Observations": "High request rate (1200 requests in 10 seconds) leading to connection exhaustion.",
+            "Impact": "Service unavailable (503 errors), worker restarts, potential downtime.",
+            "Correlations": "Linked to the System category's web server crash."
+        },
+        "Conclusion": "High traffic overwhelmed the server's connection capacity."
+    }
+}

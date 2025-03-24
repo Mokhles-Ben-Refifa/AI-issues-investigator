@@ -1,0 +1,18 @@
+{
+    "Root Cause": "Hardware failure",
+    "Log Classification": "System",
+    "Explanation": {
+        "Log Message": "Hardware failure detected: Memory corruption identified.",
+        "Possible Causes": [
+            "Faulty hardware component",
+            "Power surge or electrical issue",
+            "Manufacturing defect"
+        ],
+        "Detailed Root Cause Analysis": {
+            "Observations": "A hardware failure has been detected, indicating a critical issue.",
+            "Impact": "The system may become unstable or unavailable, affecting data integrity.",
+            "Correlations": "Other logs may indicate system crashes or errors."
+        },
+        "Conclusion": "The hardware failure is the most likely root cause of the system instability."
+    }
+}

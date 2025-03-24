@@ -1,0 +1,18 @@
+{
+    "Root Cause": "CPU overload",
+    "Log Classification": "System",
+    "Explanation": {
+        "Log Message": "CPU usage exceeded 90% for the last 5 minutes.",
+        "Possible Causes": [
+            "Resource-intensive process",
+            "Inefficient algorithm",
+            "Insufficient system resources"
+        ],
+        "Detailed Root Cause Analysis": {
+            "Observations": "The CPU usage has exceeded 90%, indicating a performance issue.",
+            "Impact": "The system may become unresponsive or slow, affecting performance.",
+            "Correlations": "Other logs may indicate slow responses or timeouts."
+        },
+        "Conclusion": "The CPU overload is the most likely root cause of the performance issue."
+    }
+}

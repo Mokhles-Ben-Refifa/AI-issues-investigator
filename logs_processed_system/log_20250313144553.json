@@ -1,0 +1,19 @@
+{
+    "Root Cause": "Excessive CPU usage by the 'database_service' process.",
+    "Log Classification": "System",
+    "Explanation": {
+        "Log Message": "Process 'database_service' is consuming 95% CPU, causing performance degradation.",
+        "Possible Causes": [
+            "A malfunction in the 'database_service' process",
+            "Inadequate system resources for the workload",
+            "Poor process optimization",
+            "Unexpected increase in request volume"
+        ],
+        "Detailed Root Cause Analysis": {
+            "Observations": "The 'database_service' process is consistently using 95% CPU, indicating a resource bottleneck.",
+            "Impact": "High CPU usage is causing system-wide performance degradation, affecting user experience and potentially leading to service unavailability.",
+            "Correlations": "The high CPU usage correlates with the preceding warning about overall CPU usage exceeding 85% for 5 minutes."
+        },
+        "Conclusion": "The 'database_service' process is the primary cause of the high CPU usage, leading to performance issues."
+    }
+}

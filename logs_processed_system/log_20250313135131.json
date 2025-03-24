@@ -1,0 +1,19 @@
+{
+    "Root Cause": "High CPU usage due to the 'database_service' process causing system instability and kernel panic.",
+    "Log Classification": "System",
+    "Explanation": {
+        "Log Message": "CPU usage has exceeded 85% for the last 5 minutes.",
+        "Possible Causes": [
+            "Increased workload or inefficient processing",
+            "Malfunctioning or resource-intensive application",
+            "System resource contention",
+            "Inadequate cooling or hardware issues"
+        ],
+        "Detailed Root Cause Analysis": {
+            "Observations": "The system experienced progressively worsening CPU usage, leading to a critical failure. The 'database_service' process was identified as the primary consumer of CPU resources, contributing to the degradation of system performance and ultimately causing a kernel panic.",
+            "Impact": "The high CPU usage led to performance degradation, which likely caused timeouts, slow response times, and eventually a system crash. This would result in downtime, data loss, and potential data corruption.",
+            "Correlations": "The high CPU usage warning, the identification of the 'database_service' process as the culprit, and the subsequent kernel panic are all interconnected. The prolonged high CPU usage destabilized the system, leading to the critical failure."
+        },
+        "Conclusion": "The 'database_service' process consuming 95% CPU is the root cause of the system instability and subsequent kernel panic. This process likely has a resource leak or inefficient operation that needs immediate attention."
+    }
+}

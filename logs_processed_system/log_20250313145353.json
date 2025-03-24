@@ -1,0 +1,19 @@
+{
+    "Root Cause": "Excessive CPU usage by the 'database_service' process leading to a kernel panic.",
+    "Log Classification": "System",
+    "Explanation": {
+        "Log Message": "Process 'database_service' is consuming 95% CPU, causing performance degradation.",
+        "Possible Causes": [
+            "Inefficient database queries",
+            "High request volume",
+            "Resource leak in the database service",
+            "Underlying OS issues"
+        ],
+        "Detailed Root Cause Analysis": {
+            "Observations": "The system logs show a progression from high CPU usage warning to critical failure. The 'database_service' process is identified as the primary consumer of CPU resources, leading to performance degradation and eventually a kernel panic.",
+            "Impact": "The excessive CPU usage caused system-wide performance issues, leading to a kernel panic and subsequent system shutdown. This would result in downtime and potential data loss or corruption.",
+            "Correlations": "The high CPU usage warning and the identification of the 'database_service' process as the culprit are directly correlated with the kernel panic and system crash."
+        },
+        "Conclusion": "The most likely root cause is the excessive CPU usage by the 'database_service' process, which overwhelmed system resources and triggered a kernel panic, leading to a system shutdown."
+    }
+}

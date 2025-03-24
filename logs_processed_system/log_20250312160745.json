@@ -1,0 +1,18 @@
+{
+    "Root Cause": "Web server crash due to resource exhaustion.",
+    "Log Classification": "System",
+    "Explanation": {
+        "Log Message": "Web server crash detected. Restarting service.",
+        "Possible Causes": [
+            "Resource depletion (CPU, memory).",
+            "Faulty Nginx configuration.",
+            "Software bug causing instability."
+        ],
+        "Detailed Root Cause Analysis": {
+            "Observations": "Crash followed a worker process restart, indicating severe stress.",
+            "Impact": "Complete service outage, requiring manual or automated recovery.",
+            "Correlations": "Preceding connection overload likely caused the crash."
+        },
+        "Conclusion": "Resource exhaustion from excessive connections caused the crash."
+    }
+}

@@ -1,0 +1,19 @@
+{
+    "Root Cause": "High CPU usage caused by the 'database_service' process leading to kernel panic.",
+    "Log Classification": "System",
+    "Explanation": {
+        "Log Message": "2025-03-13 10:15:30 ERROR [System] Process 'database_service' is consuming 95% CPU, causing performance degradation.",
+        "Possible Causes": [
+            "A bug or inefficiency in the database_service application.",
+            "Unusually high workload or traffic.",
+            "Inefficient database queries or indexing issues.",
+            "Resource contention or misconfiguration."
+        ],
+        "Detailed Root Cause Analysis": {
+            "Observations": "The system logs show a progression from high CPU usage warning (85%) to an error indicating the database_service using 95% CPU, culminating in a critical kernel panic and shutdown.",
+            "Impact": "The high CPU usage would cause slow response times, degraded system performance, and potentially lead to service unavailability. The kernel panic results in a complete system shutdown, leading to downtime and data integrity concerns.",
+            "Correlations": "The high CPU usage warning directly correlates with the database_service error, and both contribute to the critical kernel panic event."
+        },
+        "Conclusion": "The database_service process is the primary contributor to the system's high CPU usage, which escalates to a kernel panic. This is the most likely root cause due to the direct correlation between the process's CPU consumption and the subsequent system crash."
+    }
+}

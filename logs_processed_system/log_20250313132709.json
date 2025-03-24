@@ -1,0 +1,19 @@
+{
+    "Root Cause": "High CPU usage due to the 'database_service' process.",
+    "Log Classification": "System",
+    "Explanation": {
+        "Log Message": "ERROR [System] Process 'database_service' is consuming 95% CPU, causing performance degradation.",
+        "Possible Causes": [
+            "A bug or inefficiency in the database_service process",
+            "Increased workload or traffic overwhelming the service",
+            "Poor system configuration or resource allocation",
+            "Resource contention with other system processes"
+        ],
+        "Detailed Root Cause Analysis": {
+            "Observations": "The system logs show a progression from high CPU usage (85%) to a critical state where the 'database_service' process is consuming 95% CPU, leading to a kernel panic and system shutdown.",
+            "Impact": "The high CPU usage caused performance degradation, leading to a critical system failure and potential data loss or downtime.",
+            "Correlations": "The high CPU usage warning and the subsequent error message about the 'database_service' process are directly correlated, indicating that this process was the primary contributor to the system crash."
+        },
+        "Conclusion": "The 'database_service' process consuming 95% CPU is the most likely root cause of the system instability and shutdown, as it directly correlates with the progression of warnings and errors in the log."
+    }
+}

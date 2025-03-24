@@ -1,0 +1,19 @@
+
+Mar 17 10:00:12 myserver kernel: [0.000000] Linux version 5.15.0-58-generic started
+Mar 17 10:02:35 myserver systemd[1]: Started Network Manager.
+
+
+2025-03-17 10:05:21 [INFO] User 'alice' logged in from 192.168.1.50
+2025-03-17 10:06:45 [ERROR] FileNotFoundError: Missing 'config.yaml'
+
+
+Mar 17 10:07:30 Firewall: Blocked incoming connection from 203.0.113.5 on port 22
+Mar 17 10:08:12 Router: DHCP lease assigned - IP 192.168.1.101 to MAC 00:1A:2B:3C:4D:5E
+
+
+2025-03-17 10:09:55 [INFO] Apache started on port 80
+2025-03-17 10:10:20 [ERROR] 500 Internal Server Error - /api/data
+
+
+2025-03-17 10:11:35 [QUERY] SELECT * FROM users WHERE id=42;
+2025-03-17 10:12:10 [TRANSACTION] COMMIT TRANSACTION ID 123456

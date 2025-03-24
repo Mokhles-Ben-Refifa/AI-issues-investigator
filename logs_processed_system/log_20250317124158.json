@@ -1,0 +1,19 @@
+{
+    "Root Cause": "Kernel panic due to system instability caused by high CPU usage.",
+    "Log Classification": "System",
+    "Explanation": {
+        "Log Message": "Kernel panic detected. System is shutting down.",
+        "Possible Causes": [
+            "Critical system resource exhaustion",
+            "Driver or hardware failure",
+            "Filesystem corruption",
+            "Power failure"
+        ],
+        "Detailed Root Cause Analysis": {
+            "Observations": "Following the high CPU usage warning and error, the system experienced a kernel panic, leading to a shutdown.",
+            "Impact": "The kernel panic resulted in an immediate system shutdown, causing downtime, potential data loss, and requiring a restart to resume operations.",
+            "Correlations": "The kernel panic is directly linked to the preceding high CPU usage and system resource exhaustion caused by the 'database_service' process."
+        },
+        "Conclusion": "The kernel panic was triggered by system instability, most likely due to the high CPU usage from the 'database_service' process, making this the root cause of the critical issue."
+    }
+}

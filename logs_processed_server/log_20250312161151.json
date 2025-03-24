@@ -1,0 +1,19 @@
+{
+    "Root Cause": "Nginx worker process exceeded maximum connections (1024) due to high request volume.",
+    "Log Classification": "Server",
+    "Explanation": {
+        "Log Message": "Worker process exceeded maximum connections (1024). Restarting worker...",
+        "Possible Causes": [
+            "High traffic volume overwhelming server capacity",
+            "Misconfiguration of Nginx connection limits",
+            "Denial of Service (DoS) attack",
+            "Application not releasing connections properly"
+        ],
+        "Detailed Root Cause Analysis": {
+            "Observations": "Nginx received 1200 requests in 10 seconds, leading to 503 Service Unavailable errors and worker process restarts.",
+            "Impact": "Service unavailability, degraded user experience, potential data loss.",
+            "Correlations": "High request rate correlated with connection limit exhaustion."
+        },
+        "Conclusion": "The most likely root cause is the high request volume overwhelming Nginx's connection capacity."
+    }
+}

@@ -1,0 +1,18 @@
+{
+    "Root Cause": "Disk usage issue",
+    "Log Classification": "System",
+    "Explanation": {
+        "Log Message": "Disk usage is at 95%, consider freeing up space.",
+        "Possible Causes": [
+            "Large file(s) or data accumulation",
+            "Inadequate disk space allocation",
+            "File system corruption"
+        ],
+        "Detailed Root Cause Analysis": {
+            "Observations": "The disk usage has reached 95%, indicating a storage issue.",
+            "Impact": "The system may run out of storage space, affecting data integrity.",
+            "Correlations": "Other logs may indicate file system errors or slow writes."
+        },
+        "Conclusion": "The disk usage issue is the most likely root cause of the storage problem."
+    }
+}
