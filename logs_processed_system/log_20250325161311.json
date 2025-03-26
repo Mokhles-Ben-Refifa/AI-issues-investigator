@@ -1,0 +1,19 @@
+{
+    "Cluster ID": 1,
+    "Root Cause": "High CPU usage",
+    "Log Classification": "System",
+    "Explanation": {
+        "Log Message": "[2025-03-24 09:13:00] ERROR - CPU usage exceeded 95% for 2 minutes",
+        "Possible Causes": [
+            "Resource-intensive tasks or processes",
+            "Inefficient application code",
+            "Malware or unauthorized processes"
+        ],
+        "Detailed Root Cause Analysis": {
+            "Observations": "The system detected high CPU usage sustained over 2 minutes, leading to a worker process restart.",
+            "Impact": "Prolonged high CPU usage can cause system slowdowns, unresponsiveness, or service interruptions.",
+            "Correlations": "The worker process was restarted, which may indicate a repeated issue if the underlying cause isn't addressed."
+        },
+        "Conclusion": "The high CPU usage is likely due to resource-intensive processes or inefficient code, requiring investigation into the system's workload and application performance."
+    }
+}

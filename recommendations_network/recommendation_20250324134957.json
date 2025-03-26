@@ -1,0 +1,76 @@
+{
+    "Recommendation": {
+        "title": "Network Troubleshooting Steps",
+        "steps": [
+            {
+                "step": 1,
+                "action": "Restart the Router and Computer",
+                "tools": [],
+                "description": "A reboot can resolve temporary glitches and clear cached issues."
+            },
+            {
+                "step": 2,
+                "action": "Check Physical Connections",
+                "tools": [
+                    "Cable Tester"
+                ],
+                "description": "Ensure all cables are securely connected and not damaged."
+            },
+            {
+                "step": 3,
+                "action": "Test Basic Connectivity",
+                "tools": [
+                    "ping"
+                ],
+                "description": "Ping a known IP to check if the issue is local or beyond."
+            },
+            {
+                "step": 4,
+                "action": "Trace Network Path",
+                "tools": [
+                    "traceroute"
+                ],
+                "description": "Identify where connection drops using traceroute."
+            },
+            {
+                "step": 5,
+                "action": "Inspect Network Configuration",
+                "tools": [
+                    "ipconfig",
+                    "ip addr",
+                    "netstat -r"
+                ],
+                "description": "Check IP, subnet, gateway, and DNS settings."
+            },
+            {
+                "step": 6,
+                "action": "Check DNS Settings",
+                "tools": [],
+                "description": "Test access by IP and domain; flush DNS or switch servers if needed."
+            },
+            {
+                "step": 7,
+                "action": "Review Firewall Settings",
+                "tools": [
+                    "iptables"
+                ],
+                "description": "Ensure firewalls aren't blocking necessary ports."
+            },
+            {
+                "step": 8,
+                "action": "Analyze Network Traffic",
+                "tools": [
+                    "tcpdump",
+                    "Wireshark"
+                ],
+                "description": "Capture traffic to identify communication issues."
+            },
+            {
+                "step": 9,
+                "action": "Examine Network Logs",
+                "tools": [],
+                "description": "Check logs for error messages indicating the problem area."
+            }
+        ]
+    }
+}

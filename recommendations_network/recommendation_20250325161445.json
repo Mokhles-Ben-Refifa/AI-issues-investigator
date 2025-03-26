@@ -1,0 +1,88 @@
+{
+    "Recommendation": {
+        "title": "Resolving DNS Resolution Failure",
+        "steps": [
+            {
+                "step": 1,
+                "action": "Check Internet Connectivity",
+                "tools": [
+                    "ping"
+                ],
+                "description": "Verify if the internet connection is active by pinging a known IP address (e.g., 8.8.8.8). This helps determine if the issue is with DNS or general connectivity."
+            },
+            {
+                "step": 2,
+                "action": "Flush DNS Cache",
+                "tools": [
+                    "ipconfig /flushdns"
+                ],
+                "description": "Clear the corrupted DNS cache using the command prompt to ensure the system fetches new DNS records."
+            },
+            {
+                "step": 3,
+                "action": "Switch to Public DNS",
+                "tools": [
+                    "Network Settings"
+                ],
+                "description": "Change DNS settings to use a reliable public DNS (e.g., 8.8.8.8 or 1.1.1.1) to bypass potentially faulty ISP DNS servers."
+            },
+            {
+                "step": 4,
+                "action": "Restart Router",
+                "tools": [
+                    "Physical Restart"
+                ],
+                "description": "Restart the router to reset network connections and clear temporary glitches that might affect DNS resolution."
+            },
+            {
+                "step": 5,
+                "action": "Check DNS Configuration",
+                "tools": [
+                    "ipconfig /all"
+                ],
+                "description": "Review current DNS settings to ensure they are correctly configured and not causing conflicts."
+            },
+            {
+                "step": 6,
+                "action": "Test DNS with Different Devices/Browsers",
+                "tools": [
+                    "Alternative Browser/Device"
+                ],
+                "description": "Isolate the issue by testing on another device or browser to determine if the problem is local or network-wide."
+            },
+            {
+                "step": 7,
+                "action": "Analyze DNS Queries",
+                "tools": [
+                    "nslookup",
+                    "dig"
+                ],
+                "description": "Use diagnostic tools to test DNS queries and identify if the issue lies with specific DNS servers."
+            },
+            {
+                "step": 8,
+                "action": "Examine Event Logs",
+                "tools": [
+                    "Event Viewer"
+                ],
+                "description": "Check system logs for DNS-related errors to gain insights into the failure's cause."
+            },
+            {
+                "step": 9,
+                "action": "Perform Packet Analysis",
+                "tools": [
+                    "Wireshark"
+                ],
+                "description": "Capture and analyze network traffic to identify where DNS queries are failing, such as missing responses or errors."
+            },
+            {
+                "step": 10,
+                "action": "Contact ISP",
+                "tools": [
+                    "Phone/Email"
+                ],
+                "description": "Reach out to the Internet Service Provider to check for DNS outages or issues on their end."
+            }
+        ]
+    }
+}

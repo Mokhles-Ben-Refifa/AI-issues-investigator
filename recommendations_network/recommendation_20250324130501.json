@@ -1,0 +1,76 @@
+{
+    "Recommendation": {
+        "title": "Resolve Blocked Incoming Connection on Port 22",
+        "steps": [
+            {
+                "step": 1,
+                "action": "Verify SSH Service Status",
+                "tools": [
+                    "systemctl"
+                ],
+                "description": "Ensure the SSH service (sshd) is running and configured correctly. A non-running or misconfigured SSH service can block incoming connections."
+            },
+            {
+                "step": 2,
+                "action": "Check Firewall Settings",
+                "tools": [
+                    "firewalld",
+                    "iptables"
+                ],
+                "description": "Inspect firewall rules to ensure port 22 is not blocked. Use firewalld or iptables to check and configure inbound rules for SSH."
+            },
+            {
+                "step": 3,
+                "action": "Verify SSH Port Listening",
+                "tools": [
+                    "netstat",
+                    "ss"
+                ],
+                "description": "Confirm that the SSH server is listening on port 22. Use netstat or ss to check for the listening port."
+            },
+            {
+                "step": 4,
+                "action": "Inspect SSH Configuration",
+                "tools": [
+                    "vim",
+                    "nano"
+                ],
+                "description": "Review the SSH configuration file (sshd_config) to ensure it's set to listen on the appropriate interface and port."
+            },
+            {
+                "step": 5,
+                "action": "Check Network Device Configuration",
+                "tools": [
+                    "router configuration interface"
+                ],
+                "description": "If behind a router, verify port forwarding for port 22 is correctly configured to direct traffic to the SSH server."
+            },
+            {
+                "step": 6,
+                "action": "Analyze Network Logs",
+                "tools": [
+                    "journalctl",
+                    "tcpdump"
+                ],
+                "description": "Examine system and network logs for any errors or connection attempts. Use tcpdump to capture and analyze traffic on port 22."
+            },
+            {
+                "step": 7,
+                "action": "Test Connectivity",
+                "tools": [
+                    "telnet",
+                    "ssh"
+                ],
+                "description": "Test SSH connectivity from an external source to confirm if the issue persists. Use telnet or SSH clients to test the connection."
+            },
+            {
+                "step": 8,
+                "action": "Contact Hosting Provider",
+                "tools": [
+                    "support ticket"
+                ],
+                "description": "If hosted on a managed service, contact the provider to check for any network restrictions or blocked ports."
+            }
+        ]
+    }
+}

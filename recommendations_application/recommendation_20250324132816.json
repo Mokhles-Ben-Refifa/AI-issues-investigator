@@ -1,0 +1,67 @@
+{
+    "Recommendation": {
+        "title": "Résoudre l'erreur 500 due à une exception non gérée",
+        "steps": [
+            {
+                "step": 1,
+                "action": "Vérifier les journaux d'application",
+                "tools": [
+                    "log4j",
+                    "ELK Stack",
+                    "Sentry"
+                ],
+                "description": "Les journaux d'application peuvent fournir des informations précieuses sur l'origine de l'exception. Recherchez les messages d'erreur ou d'avertissement autour du moment où l'erreur s'est produite."
+            },
+            {
+                "step": 2,
+                "action": "Effectuer un débogage du code",
+                "tools": [
+                    "Visual Studio",
+                    "DebugView",
+                    "gdb"
+                ],
+                "description": "Utilisez un débogueur pour inspecter le flux d'exécution de l'application et identifier où l'exception est levée. Placez des points d'arrêt dans les sections critiques du code pour examiner les variables et l'état de l'application."
+            },
+            {
+                "step": 3,
+                "action": "Vérifier les dépendances",
+                "tools": [
+                    "NuGet",
+                    "npm",
+                    "Maven"
+                ],
+                "description": "Assurez-vous que toutes les dépendances de l'application sont correctement installées et configurées. Une dépendance manquante ou corrompue peut provoquer des exceptions inattendues."
+            },
+            {
+                "step": 4,
+                "action": "Surveiller l'utilisation des ressources système",
+                "tools": [
+                    "New Relic",
+                    "Grafana",
+                    "Windows Performance Monitor"
+                ],
+                "description": "Surveillez l'utilisation de la CPU, de la mémoire, du disque et du réseau. Une surcharge des ressources système peut provoquer des erreurs serveur internes."
+            },
+            {
+                "step": 5,
+                "action": "Effectuer un suivi des requêtes",
+                "tools": [
+                    "Jaeger",
+                    "Distributed Tracing",
+                    "Request Tracing"
+                ],
+                "description": "Utilisez un outil de suivi des requêtes pour identifier les points critiques dans le flux de requêtes. Cela peut aider à identifier les problèmes de performances ou les exceptions non gérées."
+            },
+            {
+                "step": 6,
+                "action": "Mettre en œuvre un système de suivi des erreurs",
+                "tools": [
+                    "Sentry",
+                    "ELK Stack",
+                    "New Relic"
+                ],
+                "description": "Installez un outil de suivi des erreurs pour capturer et analyser les exceptions. Cela permettra de identifier rapidement les problèmes récurrents et de les résoudre de manière proactive."
+            }
+        ]
+    }
+}

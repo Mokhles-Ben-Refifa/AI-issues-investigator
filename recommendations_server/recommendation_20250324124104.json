@@ -1,0 +1,42 @@
+{
+    "Recommendation": {
+        "title": "Résoudre l'erreur 500 Internal Server",
+        "steps": [
+            {
+                "step": 1,
+                "action": "Augmenter la limite de mémoire PHP",
+                "tools": [
+                    "php.ini",
+                    "phpinfo()"
+                ],
+                "description": "L'erreur 500 peut être causée par l'épuisement de la limite de mémoire PHP. Il est recommandé de vérifier et d'augmenter cette limite dans le fichier php.ini."
+            },
+            {
+                "step": 2,
+                "action": "Désactiver les plug-ins et le thème",
+                "tools": [
+                    "WordPress administration"
+                ],
+                "description": "Un conflit entre les plug-ins ou avec le thème peut provoquer cette erreur. Désactivez-les un par un pour identifier la cause."
+            },
+            {
+                "step": 3,
+                "action": "Vérifier les journaux du serveur",
+                "tools": [
+                    "journalctl",
+                    "nginx/apache logs"
+                ],
+                "description": "Analysons les journaux du serveur pour identifier les erreurs spécifiques et les causes potentielles."
+            },
+            {
+                "step": 4,
+                "action": "Vérifier l'utilisation des ressources",
+                "tools": [
+                    "top",
+                    "htop"
+                ],
+                "description": "Surveillons l'utilisation de la mémoire et du processeur pour s'assurer que le serveur n'est pas en surcharge."
+            }
+        ]
+    }
+}

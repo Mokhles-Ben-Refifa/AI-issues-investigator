@@ -1,0 +1,50 @@
+{
+    "Recommendation": {
+        "title": "Comprehensive Server Troubleshooting",
+        "steps": [
+            {
+                "step": 1,
+                "action": "Check System Logs for Errors",
+                "tools": [
+                    "journalctl"
+                ],
+                "description": "Reviewing system logs can uncover hidden issues or recent errors that might not have been detected initially."
+            },
+            {
+                "step": 2,
+                "action": "Monitor Resource Usage",
+                "tools": [
+                    "top",
+                    "htop"
+                ],
+                "description": "High resource usage could indicate a problem that's not immediately obvious, such as a runaway process."
+            },
+            {
+                "step": 3,
+                "action": "Temporarily Disable CDN",
+                "tools": [
+                    "CDN configuration tools"
+                ],
+                "description": "This helps determine if the CDN is causing the issue by testing the site without it."
+            },
+            {
+                "step": 4,
+                "action": "Inspect Server Configuration",
+                "tools": [
+                    "nginx logs",
+                    "apache logs",
+                    "netstat"
+                ],
+                "description": "Check for configuration errors and ensure the server is listening on correct ports."
+            },
+            {
+                "step": 5,
+                "action": "Analyze Network Connections",
+                "tools": [
+                    "netstat"
+                ],
+                "description": "Identify any unexpected connections or port issues that might affect server performance."
+            }
+        ]
+    }
+}

@@ -1,24 +1,26 @@
-# init_db.py
 import sqlite3
+import os, sys
+sys.stdout.reconfigure(encoding='utf-8')
 
-conn = sqlite3.connect("logs_memory.db")  # crée le fichier SQLite
-
+db_path = os.path.abspath("logs_memory.db")
+conn = sqlite3.connect(db_path)
 cursor = conn.cursor()
 
-# Création de la table de cache
-cursor.execute("""
-CREATE TABLE IF NOT EXISTS processed_logs (
-    id INTEGER PRIMARY KEY AUTOINCREMENT,
-    log TEXT NOT NULL,
-    category TEXT,
-    root_cause TEXT,
-    recommendation TEXT,
-    log_hash TEXT UNIQUE,
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-);
-""")
+categories = ["server", "system", "application", "network", "database"]
+
+for cat in categories:
+    table_name = f"processed_logs_{cat}"
+    cursor.execute(f"""
+    CREATE TABLE IF NOT EXISTS {table_name} (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        log TEXT,
+        root_cause TEXT,
+        recommendation TEXT,
+        log_hash TEXT UNIQUE,
+        created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+    );
+    """)
+    print(f"✅ Table '{table_name}' (re)créée avec succès.")
 
 conn.commit()
 conn.close()
-
-print("✅ Base de données SQLite initialisée.")

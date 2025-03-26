@@ -1,19 +1,17 @@
-
-Mar 17 10:00:12 myserver kernel: [0.000000] Linux version 5.15.0-58-generic started
-Mar 17 10:02:35 myserver systemd[1]: Started Network Manager.
-
-
-2025-03-17 10:05:21 [INFO] User 'alice' logged in from 192.168.1.50
-2025-03-17 10:06:45 [ERROR] FileNotFoundError: Missing 'config.yaml'
-
-
-Mar 17 10:07:30 Firewall: Blocked incoming connection from 203.0.113.5 on port 22
-Mar 17 10:08:12 Router: DHCP lease assigned - IP 192.168.1.101 to MAC 00:1A:2B:3C:4D:5E
-
-
-2025-03-17 10:09:55 [INFO] Apache started on port 80
-2025-03-17 10:10:20 [ERROR] 500 Internal Server Error - /api/data
-
-
-2025-03-17 10:11:35 [QUERY] SELECT * FROM users WHERE id=42;
-2025-03-17 10:12:10 [TRANSACTION] COMMIT TRANSACTION ID 123456
+[2025-03-24 09:12:05] INFO  - Server started successfully on port 8080
+[2025-03-24 09:12:10] ERROR - Failed to connect to database: Timeout expired
+[2025-03-24 09:12:15] WARNING - Retrying database connection in 5 seconds...
+[2025-03-24 09:12:20] INFO  - Database reconnected successfully
+[2025-03-24 09:13:00] ERROR - CPU usage exceeded 95% for 2 minutes
+[2025-03-24 09:13:10] INFO  - Restarting worker process due to resource constraints
+[2025-03-24 09:14:00] WARNING - High memory consumption detected in application service
+[2025-03-24 09:14:05] DEBUG - Garbage collection triggered
+[2025-03-24 09:14:15] ERROR - Application crashed due to null pointer exception
+[2025-03-24 09:14:20] INFO  - Application service restarted successfully
+[2025-03-24 09:15:00] INFO  - GET /api/user/profile returned 200 OK
+[2025-03-24 09:15:05] INFO  - POST /api/user/update returned 500 Internal Server Error
+[2025-03-24 09:15:10] ERROR - Unhandled exception in /api/user/update: KeyError 'email'
+[2025-03-24 09:15:30] WARNING - Packet loss detected on eth0 interface
+[2025-03-24 09:15:40] ERROR - DNS resolution failed for api.example.com
+[2025-03-24 09:15:50] INFO  - DNS service restarted
+[2025-03-24 09:16:00] DEBUG - New user registered: id=10234

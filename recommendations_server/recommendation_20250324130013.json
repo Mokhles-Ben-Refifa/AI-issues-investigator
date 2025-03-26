@@ -1,0 +1,64 @@
+{
+    "Recommendation": {
+        "title": "Diagnostic et résolution de l'erreur 500",
+        "steps": [
+            {
+                "step": 1,
+                "action": "Consultation des logs du serveur",
+                "tools": [
+                    "journalctl",
+                    "cat /var/log/nginx/error.log",
+                    "cat /var/log/php-fpm/error.log"
+                ],
+                "description": "Les logs du serveur contiennent des informations précieuses sur l'origine de l'erreur 500. Recherchez des messages d'erreur ou d'avertissement près du moment où l'erreur s'est produite."
+            },
+            {
+                "step": 2,
+                "action": "Vérification de la configuration du serveur web",
+                "tools": [
+                    "nginx -t",
+                    "apache2 -t"
+                ],
+                "description": "Vérifiez la configuration de votre serveur web (Nginx, Apache) pour identifier d'éventuelles erreurs de syntaxe ou de configuration."
+            },
+            {
+                "step": 3,
+                "action": "Analyse de l'utilisation des ressources",
+                "tools": [
+                    "top",
+                    "htop",
+                    "free -m"
+                ],
+                "description": "Vérifiez l'utilisation des ressources système (CPU, mémoire, disque) pour s'assurer que le serveur n'est pas en surcharge."
+            },
+            {
+                "step": 4,
+                "action": "Vérification des permissions des fichiers",
+                "tools": [
+                    "ls -l",
+                    "chmod",
+                    "chown"
+                ],
+                "description": "Assurez-vous que les permissions des fichiers et des répertoires du site web sont correctes et permettent au serveur web d'accéder aux ressources nécessaires."
+            },
+            {
+                "step": 5,
+                "action": "Test de la configuration PHP",
+                "tools": [
+                    "php -i",
+                    "php-fpm"
+                ],
+                "description": "Vérifiez la configuration de PHP et assurez-vous qu'il n'y a pas d'erreurs dans les logs de PHP-FPM."
+            },
+            {
+                "step": 6,
+                "action": "Activation du mode débogage",
+                "tools": [
+                    "display_errors = On",
+                    "error_reporting = E_ALL"
+                ],
+                "description": "Activez le mode débogage dans la configuration de PHP pour obtenir plus de détails sur les erreurs."
+            }
+        ]
+    }
+}

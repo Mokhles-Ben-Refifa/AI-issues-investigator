@@ -1,0 +1,18 @@
+{
+    "Root Cause": "Blocked incoming connection on port 22",
+    "Log Classification": "Network",
+    "Explanation": {
+        "Log Message": "Blocked incoming connection from 203.0.113.5 on port 22",
+        "Possible Causes": [
+            "Unauthorized access attempt on port 22 (SSH).",
+            "Misconfigured firewall rules.",
+            "Legitimate connection attempt being blocked by over-restrictive firewall policies."
+        ],
+        "Detailed Root Cause Analysis": {
+            "Observations": "The firewall blocked an incoming connection from IP address 203.0.113.5 on port 22, which is typically used for SSH access.",
+            "Impact": "If this is a legitimate connection, the user cannot access the server via SSH. If malicious, it prevents potential unauthorized access.",
+            "Correlations": "This could be linked to brute-force attacks, SSH port scanning, or configuration changes in the firewall."
+        },
+        "Conclusion": "The most likely root cause is an unauthorized access attempt on port 22, which was correctly blocked by the firewall. However, if this is a legitimate connection, firewall rules may need adjustment."
+    }
+}

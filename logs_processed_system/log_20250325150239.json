@@ -1,0 +1,20 @@
+{
+    "Cluster ID": 1,
+    "Root Cause": "High CPU usage causing worker process restart.",
+    "Log Classification": "System",
+    "Explanation": {
+        "Log Message": "[2025-03-24 09:13:00] ERROR - CPU usage exceeded 95% for 2 minutes",
+        "Possible Causes": [
+            "Resource-intensive application code",
+            "Malfunctioning or stuck processes",
+            "Inadequate system resources",
+            "Poor load balancing"
+        ],
+        "Detailed Root Cause Analysis": {
+            "Observations": "The system experienced sustained high CPU usage, triggering a worker process restart.",
+            "Impact": "This could lead to service degradation, slow response times, or complete unavailability.",
+            "Correlations": "The restart of the worker process indicates automatic recovery mechanisms were in place."
+        },
+        "Conclusion": "The most likely root cause is high CPU usage overwhelming the system resources."
+    }
+}

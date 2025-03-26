@@ -1,0 +1,39 @@
+{
+    "Recommendation": {
+        "title": "Diagnose and Resolve Operating System Not Found Issue",
+        "steps": [
+            {
+                "step": 1,
+                "action": "Check Hard Drive Detection in BIOS",
+                "tools": [
+                    "BIOS settings (F2, DEL, or ESC)"
+                ],
+                "description": "Ensure the BIOS recognizes the hard drive. If undetected, the OS cannot boot."
+            },
+            {
+                "step": 2,
+                "action": "Verify Boot Order in BIOS",
+                "tools": [
+                    "BIOS configuration utility"
+                ],
+                "description": "Confirm the correct boot order. The OS drive should be first to prevent boot failure."
+            },
+            {
+                "step": 3,
+                "action": "Use a Bootable USB Tool",
+                "tools": [
+                    "Rufus, Etcher"
+                ],
+                "description": "Create a bootable USB to diagnose or repair the OS if the hard drive is detected but corrupted."
+            },
+            {
+                "step": 4,
+                "action": "Run System Diagnostics",
+                "tools": [
+                    "SMART, BIOS diagnostics"
+                ],
+                "description": "Check for hardware issues using diagnostic tools, ensuring the drive is functional."
+            }
+        ]
+    }
+}

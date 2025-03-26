@@ -1,0 +1,70 @@
+{
+    "Recommendation": {
+        "title": "Resolve High CPU Usage Issue",
+        "steps": [
+            {
+                "step": 1,
+                "action": "Open Task Manager",
+                "tools": [
+                    "Ctrl + Shift + Esc"
+                ],
+                "description": "This will allow you to identify which processes are using excessive CPU resources."
+            },
+            {
+                "step": 2,
+                "action": "Sort Processes by CPU Usage",
+                "tools": [
+                    "Task Manager"
+                ],
+                "description": "In Task Manager, click on the 'CPU' column to sort processes by CPU usage in descending order. This helps identify the process(es) consuming the most CPU."
+            },
+            {
+                "step": 3,
+                "action": "Analyze High CPU Processes",
+                "tools": [
+                    "Task Manager"
+                ],
+                "description": "Look for unfamiliar or suspicious processes. If you identify a specific application or service causing high CPU usage, consider closing or uninstalling it."
+            },
+            {
+                "step": 4,
+                "action": "Run a Virus Scan",
+                "tools": [
+                    "Windows Defender",
+                    "Antivirus Software"
+                ],
+                "description": "High CPU usage could be caused by malware. Run a full system scan using your antivirus software to detect and remove any malicious software."
+            },
+            {
+                "step": 5,
+                "action": "Run System File Checker (SFC)",
+                "tools": [
+                    "Command Prompt (Admin)",
+                    "sfc /scannow"
+                ],
+                "description": "Corrupted system files can cause high CPU usage. Running SFC will scan and replace corrupted system files."
+            },
+            {
+                "step": 6,
+                "action": "Perform a System Restore",
+                "tools": [
+                    "Control Panel",
+                    "Recovery",
+                    "Open System Restore"
+                ],
+                "description": "If the issue started recently, you can restore your system to a previous point when it was functioning correctly."
+            },
+            {
+                "step": 7,
+                "action": "Reinstall Windows",
+                "tools": [
+                    "Windows Settings",
+                    "Update & Security",
+                    "Recovery",
+                    "Get started"
+                ],
+                "description": "As a last resort, if none of the above steps resolve the issue, reinstalling Windows will reset your system to a clean state."
+            }
+        ]
+    }
+}

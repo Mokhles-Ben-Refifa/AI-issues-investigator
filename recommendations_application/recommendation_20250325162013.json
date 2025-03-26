@@ -1,0 +1,77 @@
+{
+    "Recommendation": {
+        "title": "Resolve High CPU Usage and Resource Constraints",
+        "steps": [
+            {
+                "step": 1,
+                "action": "Identify the process causing high CPU usage",
+                "tools": [
+                    "Task Manager",
+                    "top",
+                    "htop"
+                ],
+                "description": "Use system monitoring tools to identify the process(es) consuming excessive CPU resources. This step is essential to pinpoint the root cause of the high CPU usage."
+            },
+            {
+                "step": 2,
+                "action": "Analyze application logs for errors or anomalies",
+                "tools": [
+                    "log4j",
+                    "ELK Stack",
+                    "New Relic",
+                    "Sentry"
+                ],
+                "description": "Review application logs to detect any errors, warnings, or unusual patterns that may indicate the source of the high CPU usage or resource constraints."
+            },
+            {
+                "step": 3,
+                "action": "Optimize application code and dependencies",
+                "tools": [
+                    "Visual Studio",
+                    "JetBrains",
+                    "Dependency Checker"
+                ],
+                "description": "Inspect the application code for inefficient algorithms, memory leaks, or unnecessary resource usage. Update dependencies to ensure they are optimized and up-to-date."
+            },
+            {
+                "step": 4,
+                "action": "Monitor system resource usage",
+                "tools": [
+                    "Grafana",
+                    "New Relic",
+                    "Jaeger"
+                ],
+                "description": "Set up monitoring tools to track CPU, memory, and other system resources in real-time. This helps in identifying performance bottlenecks and preventing future crashes."
+            },
+            {
+                "step": 5,
+                "action": "Terminate or limit resource-intensive processes",
+                "tools": [
+                    "Task Manager",
+                    "kill",
+                    "systemd"
+                ],
+                "description": "If a specific process is identified as the culprit, terminate or limit its resource usage. For services, consider configuring them to run with appropriate resource limits."
+            },
+            {
+                "step": 6,
+                "action": "Advanced debugging and profiling",
+                "tools": [
+                    "GDB",
+                    "Valgrind",
+                    "APM tools"
+                ],
+                "description": "If the issue persists, use advanced debugging and profiling tools to trace the application's behavior, identify race conditions, or detect memory leaks."
+            },
+            {
+                "step": 7,
+                "action": "Check for updates or known issues",
+                "tools": [
+                    "Vendor Documentation",
+                    "Community Forums"
+                ],
+                "description": "Verify if the issue is known for the specific application or service. Check for updates, patches, or workarounds provided by the vendor or community."
+            }
+        ]
+    }
+}

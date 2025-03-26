@@ -1,0 +1,49 @@
+{
+    "Recommendation": {
+        "title": "Remove Incompatible DKMS Module and Rebuild",
+        "steps": [
+            {
+                "step": 1,
+                "action": "Identify and list all DKMS modules",
+                "tools": [
+                    "dkms"
+                ],
+                "description": "This step is necessary to identify the exact version of the 'tuxedo-keyboard' module that needs to be removed."
+            },
+            {
+                "step": 2,
+                "action": "Remove the incompatible 'tuxedo-keyboard' DKMS module",
+                "tools": [
+                    "dkms remove -m tuxedo-keyboard -v <version> --all"
+                ],
+                "description": "This step removes the outdated DKMS module that is causing compatibility issues with the new kernel."
+            },
+            {
+                "step": 3,
+                "action": "Rebuild DKMS modules",
+                "tools": [
+                    "dkms autoinstall"
+                ],
+                "description": "This step rebuilds all DKMS modules to ensure they are compatible with the new kernel version."
+            },
+            {
+                "step": 4,
+                "action": "Verify the removal of the module",
+                "tools": [
+                    "dkms status"
+                ],
+                "description": "This step confirms that the 'tuxedo-keyboard' module has been successfully removed and is no longer present in the system."
+            },
+            {
+                "step": 5,
+                "action": "Check system logs for errors",
+                "tools": [
+                    "dmesg | grep -i error",
+                    "journalctl -b",
+                    "syslog"
+                ],
+                "description": "This step helps identify if there are any remaining issues related to the kernel or DKMS modules."
+            }
+        ]
+    }
+}

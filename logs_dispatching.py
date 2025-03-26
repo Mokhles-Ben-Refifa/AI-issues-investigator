@@ -18,34 +18,58 @@ output_log_file = "dispatched_logs.log"
 with open(input_log_file, "r", encoding="utf-8") as file:
     logs = file.read()
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 prompt = f"""
-You are an expert in log analysis. Here are system logs:
+You are an expert in system log analysis.
+
+Below is a raw collection of system logs:
 
 {logs}
 
-Analyze these logs and classify them into **clusters** based on similar errors or issues.
-Return only a JSON output, with no additional explanations or text before/after, in the following format:
+Your task is to analyze these logs and group them into **clusters** where each cluster contains logs that are **closely related and contribute to the same root cause**. Group not only based on errors, but also include correlated INFO, WARNING, and DEBUG logs if they belong to the same context.
+
+### Output Format:
+Return ONLY a valid JSON in the following format, with no additional explanation or text:
+
+```json
 {{
   "clusters": [
     {{
       "id": 0,
-      "description": "Database connection issues",
+      "description": "Short summary of the issue (e.g., database timeout and reconnection)",
       "logs": [
         "2024-03-12 10:15:10 ERROR Failed to connect to database: Connection refused",
         "2024-03-12 10:15:11 ERROR Retrying database connection...",
-        "2024-03-12 10:15:12 ERROR Connection failed again: Host unreachable"
+        "2024-03-12 10:15:12 INFO Database connection established"
       ]
     }},
     {{
       "id": 1,
-      "description": "Worker process memory issues",
+      "description": "Short summary of another issue",
       "logs": [
-        "2024-03-12 10:16:05 ERROR Worker process crashed due to memory limit exceeded",
-        "2024-03-12 10:16:10 INFO Worker process restarted successfully"
+        "...log lines here..."
       ]
     }}
   ]
 }}
+
 
 Do not include **anything** other than the JSON.
 """

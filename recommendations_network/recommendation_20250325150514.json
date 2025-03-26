@@ -1,0 +1,69 @@
+{
+    "Recommendation": {
+        "title": "Resolve DNS Resolution Failure for api.example.com",
+        "steps": [
+            {
+                "step": 1,
+                "action": "Check DNS Resolution",
+                "tools": [
+                    "dig",
+                    "nslookup"
+                ],
+                "description": "Verify if the domain api.example.com resolves correctly by querying the DNS server directly."
+            },
+            {
+                "step": 2,
+                "action": "Switch DNS Servers",
+                "tools": [
+                    "Network Settings"
+                ],
+                "description": "Try using a different DNS server like Google's 8.8.8.8 to see if the issue persists."
+            },
+            {
+                "step": 3,
+                "action": "Check Network Configuration",
+                "tools": [
+                    "ifconfig/ip addr",
+                    "hosts file"
+                ],
+                "description": "Restart the router and inspect the hosts file for incorrect entries."
+            },
+            {
+                "step": 4,
+                "action": "Inspect Firewall Rules",
+                "tools": [
+                    "iptables",
+                    "ufw"
+                ],
+                "description": "Ensure DNS traffic on port 53 isn't blocked by firewall rules."
+            },
+            {
+                "step": 5,
+                "action": "Test DNS Server Connectivity",
+                "tools": [
+                    "ping",
+                    "traceroute"
+                ],
+                "description": "Check if the DNS server is reachable to rule out network connectivity issues."
+            },
+            {
+                "step": 6,
+                "action": "Clear DNS Cache",
+                "tools": [
+                    "ipconfig /flushdns",
+                    "systemd-resolve --flush-caches"
+                ],
+                "description": "Flush the DNS cache to eliminate outdated records."
+            },
+            {
+                "step": 7,
+                "action": "Advanced Troubleshooting with Packet Capture",
+                "tools": [
+                    "tcpdump",
+                    "Wireshark"
+                ],
+                "description": "Capture DNS traffic to analyze where the query is failing."
+            }
+        ]
+    }
+}

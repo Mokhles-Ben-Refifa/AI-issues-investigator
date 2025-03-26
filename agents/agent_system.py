@@ -6,6 +6,9 @@ from serpapi import GoogleSearch
 import time
 from agno.agent import Agent
 from multiprocessing import Queue
+import sqlite3
+import hashlib
+
 
 class SystemAgent(Agent):
     def __init__(self, queue):
@@ -39,12 +42,21 @@ class SystemAgent(Agent):
             self.process_log(message)
 
     def process_log(self, log_data):
-        root_cause = log_data.get("Root Cause", "Inconnu")
-        explanation = log_data.get("Explanation", {}).get("Analysis", "Aucune explication fournie.")
-        print(f"⚙️ Traitement du log system - Cause: {root_cause}")
-        self.save_log_report(log_data)
-        recommendation = self.generate_recommendation(root_cause, explanation)
-        self.save_recommendation(recommendation)
+            root_cause = log_data.get("Root Cause", "Inconnu")
+            explanation = log_data.get("Explanation", {}).get("Analysis", "Aucune explication fournie.")
+            print(f"⚙️ Traitement du log database - Cause: {root_cause}")
+            
+            self.save_log_report(log_data)
+            recommendation = self.generate_recommendation(root_cause, explanation)
+            self.save_recommendation(recommendation)
+
+          
+            log_text = json.dumps(log_data, sort_keys=True, ensure_ascii=False)
+            log_hash = hashlib.sha256(log_text.encode("utf-8")).hexdigest()
+
+            self.save_to_db(log_text, root_cause, recommendation, log_hash)
+
+
 
     def save_log_report(self, log_data):
         timestamp = datetime.datetime.now().strftime("%Y%m%d%H%M%S")
@@ -161,72 +173,12 @@ class SystemAgent(Agent):
             return None  
         
         resp = completion.choices[0].message.content
-        raw_data1=extract_json(resp)
+        raw_data=extract_json(resp)
         
-        def format_recommendation(recommendation_text):
-            """
-            Formats the recommendation text by properly aligning new lines with indentation.
-
-            Args:
-                recommendation_text (str or dict): The recommendation text.
-
-            Returns:
-                dict: Formatted recommendation text in JSON-compatible format.
-            """
-            if isinstance(recommendation_text, dict) and "Recommendation" in recommendation_text:
-                text = recommendation_text["Recommendation"]
-            elif isinstance(recommendation_text, str):
-                text = recommendation_text
-            else:
-                return {"Recommendation": ""}  
-
-           
-            lines = text.split("\n")
-            formatted_text = "".join(["\\n" + line if i > 0 else line for i, line in enumerate(lines)])
-
-            return {"Recommendation": formatted_text}
         
-        def format_and_save_recommendation(recommendation_text):
-                """
-                Splits recommendation text into separate lines and saves it as a structured JSON file.
-
-                Args:
-                    recommendation_text (str or dict): The recommendation text.
-                    save_directory (str): Directory where the file should be saved.
-
-                Returns:
-                    str: Path of the saved JSON file.
-                """
-                if isinstance(recommendation_text, dict) and "Recommendation" in recommendation_text:
-                    text = recommendation_text["Recommendation"]
-                elif isinstance(recommendation_text, str):
-                    text = recommendation_text
-                else:
-                    return None 
-
-                
-                lines = text.split("\n")
-                formatted_data = {"Recommendation": lines}
-                return formatted_data
-        
-
-
-
-
-
-        
-        raw_data=format_and_save_recommendation(raw_data1)
-
       
-    
 
-
-
-
-
-
-        print(raw_data)
-
+        
         try:
      
             parsed_recommendation =raw_data
@@ -264,6 +216,29 @@ class SystemAgent(Agent):
         with open(recommendation_filename, "w", encoding="utf-8") as file:
             json.dump( recommendation_text, file, indent=4, ensure_ascii=False)
         print(f"✅ Recommandation sauvegardée : {recommendation_filename}")
+
+
+
+
+    def save_to_db(self, log_text, root_cause, recommendation, log_hash):
+        try:
+            db_path = os.path.abspath("logs_memory.db")
+            conn = sqlite3.connect(db_path)
+            cursor = conn.cursor()
+
+            cursor.execute("""
+                INSERT OR IGNORE INTO processed_logs_system (log, root_cause, recommendation, log_hash)
+                VALUES (?, ?, ?, ?)
+            """, (log_text, root_cause, json.dumps(recommendation, ensure_ascii=False), log_hash))
+
+            conn.commit()
+            conn.close()
+            print("💾 Log system enregistré en base avec succès.")
+
+        except Exception as e:
+            print(f"⚠️ Erreur lors de l'enregistrement en base : {e}")
+
+
 
 if __name__ == "__main__":
     log_queue = Queue()

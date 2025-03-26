@@ -1,0 +1,76 @@
+{
+    "Recommendation": {
+        "title": "Resolving Database Query Timeout Issues",
+        "steps": [
+            {
+                "step": 1,
+                "action": "Analyze Query Performance",
+                "tools": [
+                    "EXPLAIN ANALYZE"
+                ],
+                "description": "Identify slow-running queries by examining their execution plans to pinpoint inefficiencies."
+            },
+            {
+                "step": 2,
+                "action": "Review Database Logs",
+                "tools": [
+                    "slow_query_log (MySQL)",
+                    "postgresql.log (PostgreSQL)"
+                ],
+                "description": "Examine logs to find queries causing timeouts and understand their execution details."
+            },
+            {
+                "step": 3,
+                "action": "Check Active Connections and Processes",
+                "tools": [
+                    "SHOW PROCESSLIST (MySQL)",
+                    "pg_stat_activity (PostgreSQL)"
+                ],
+                "description": "Monitor current database activity to detect long-running processes or excessive connections."
+            },
+            {
+                "step": 4,
+                "action": "Optimize Indexing",
+                "tools": [
+                    "Index tuning tools"
+                ],
+                "description": "Ensure proper indexing on frequently queried columns to improve query efficiency."
+            },
+            {
+                "step": 5,
+                "action": "Investigate Lock Contention",
+                "tools": [
+                    "pg_stat_statements (PostgreSQL)",
+                    "InnoDB Engine Status (MySQL)"
+                ],
+                "description": "Check for transaction locks causing delays and optimize transaction handling."
+            },
+            {
+                "step": 6,
+                "action": "Monitor Server Resources",
+                "tools": [
+                    "top",
+                    "htop"
+                ],
+                "description": "Assess CPU, memory, and disk usage to ensure the server can handle the workload."
+            },
+            {
+                "step": 7,
+                "action": "Adjust Connection Pooling Settings",
+                "tools": [
+                    "Connection pooling configuration tools"
+                ],
+                "description": "Optimize pool settings to prevent connection waits and improve performance."
+            },
+            {
+                "step": 8,
+                "action": "Check Replication Lag",
+                "tools": [
+                    "pt-heartbeat",
+                    "SHOW SLAVE STATUS"
+                ],
+                "description": "Ensure replication is up-to-date to avoid issues with data consistency."
+            }
+        ]
+    }
+}

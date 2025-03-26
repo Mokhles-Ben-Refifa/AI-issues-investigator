@@ -1,0 +1,49 @@
+{
+    "Recommendation": {
+        "title": "Comprehensive System Check",
+        "steps": [
+            {
+                "step": 1,
+                "action": "Review System Logs",
+                "tools": [
+                    "dmesg",
+                    "journalctl"
+                ],
+                "description": "Check kernel and system logs for any hidden issues or warnings."
+            },
+            {
+                "step": 2,
+                "action": "Verify Disk Health",
+                "tools": [
+                    "lsblk",
+                    "smartctl"
+                ],
+                "description": "Ensure all disks are recognized and run a SMART test for health status."
+            },
+            {
+                "step": 3,
+                "action": "Check BIOS Settings",
+                "tools": [
+                    "BIOS Setup"
+                ],
+                "description": "Confirm the hard drive is detected in the BIOS."
+            },
+            {
+                "step": 4,
+                "action": "Run File System Check",
+                "tools": [
+                    "fsck"
+                ],
+                "description": "Check for file system errors by booting from a live USB and running fsck."
+            },
+            {
+                "step": 5,
+                "action": "Consider OS Reinstallation",
+                "tools": [
+                    "Live USB"
+                ],
+                "description": "Reinstall the OS if no other issues are found, as a last resort."
+            }
+        ]
+    }
+}

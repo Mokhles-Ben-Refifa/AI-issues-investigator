@@ -1,0 +1,52 @@
+{
+    "Recommendation": {
+        "title": "Troubleshooting Internal Server Error During Large File Upload",
+        "steps": [
+            {
+                "step": 1,
+                "action": "Check Server Logs for Detailed Error Messages",
+                "tools": [
+                    "dmesg",
+                    "journalctl",
+                    "syslog"
+                ],
+                "description": "Reviewing server logs can provide specific details about the error, such as resource limits or configuration issues."
+            },
+            {
+                "step": 2,
+                "action": "Verify File Size Upload Limits",
+                "tools": [
+                    "php.ini (for PHP settings)",
+                    "Apache/Nginx configuration files"
+                ],
+                "description": "Check and adjust settings like upload_max_filesize, post_max_size, and client_max_body_size to accommodate larger files."
+            },
+            {
+                "step": 3,
+                "action": "Inspect Server Configuration for Timeout Settings",
+                "tools": [
+                    "Apache: Timeout directive",
+                    "Nginx: client_body_timeout"
+                ],
+                "description": "Ensure timeout values are sufficient for large file uploads to prevent premature connection drops."
+            },
+            {
+                "step": 4,
+                "action": "Run Network Diagnostic Tools",
+                "tools": [
+                    "tcpdump",
+                    "Wireshark"
+                ],
+                "description": "Analyze network traffic to identify potential issues like packet loss or connectivity problems during upload."
+            },
+            {
+                "step": 5,
+                "action": "Test with Smaller Files",
+                "tools": [
+                    "curl or a web browser"
+                ],
+                "description": "Determine if the issue is specific to large files by testing with smaller ones to isolate the problem."
+            }
+        ]
+    }
+}

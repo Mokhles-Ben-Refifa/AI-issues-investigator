@@ -1,0 +1,76 @@
+{
+    "Recommendation": {
+        "title": "Resolve DNS Resolution Failure",
+        "steps": [
+            {
+                "step": 1,
+                "action": "Test DNS Server Reachability",
+                "tools": [
+                    "ping"
+                ],
+                "description": "Verify if the DNS server is reachable by pinging its IP address to check for network connectivity issues."
+            },
+            {
+                "step": 2,
+                "action": "Check DNS Configuration",
+                "tools": [
+                    "ipconfig /all",
+                    "ifconfig -a"
+                ],
+                "description": "Review the client's DNS settings to ensure correct DNS server IP addresses are configured."
+            },
+            {
+                "step": 3,
+                "action": "Test DNS Query Resolution",
+                "tools": [
+                    "nslookup",
+                    "dig"
+                ],
+                "description": "Use DNS query tools to test if the server can resolve domain names and identify any specific errors."
+            },
+            {
+                "step": 4,
+                "action": "Inspect Firewall Settings",
+                "tools": [
+                    "iptables",
+                    "ufw",
+                    "Windows Firewall"
+                ],
+                "description": "Check firewall rules to ensure DNS traffic on port 53 is not blocked on both client and server."
+            },
+            {
+                "step": 5,
+                "action": "Perform Packet Capture",
+                "tools": [
+                    "tcpdump",
+                    "Wireshark"
+                ],
+                "description": "Capture DNS traffic to analyze request and response patterns, helping identify where the failure occurs."
+            },
+            {
+                "step": 6,
+                "action": "Restart DNS Service",
+                "tools": [
+                    "Service management tools"
+                ],
+                "description": "Restart the DNS service on the server to resolve potential service corruption issues."
+            },
+            {
+                "step": 7,
+                "action": "Review DNS Server Logs",
+                "tools": [
+                    "Log analysis tools"
+                ],
+                "description": "Examine server logs for errors or warnings that could explain the DNS failure."
+            },
+            {
+                "step": 8,
+                "action": "Contact DNS Provider",
+                "tools": [
+                    "Support channels"
+                ],
+                "description": "Check for any known outages or issues with the DNS provider that might be causing the disruption."
+            }
+        ]
+    }
+}

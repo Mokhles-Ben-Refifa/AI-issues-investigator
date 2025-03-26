@@ -11,6 +11,8 @@ from agents.agent_system import SystemAgent
 from agents.agent_network import NetworkAgent
 from agents.agent_db import DatabaseAgent
 from agents.agent_app import ApplicationAgent
+import sqlite3
+import hashlib
 
 import unicodedata
 
@@ -35,7 +37,7 @@ API_KEY = "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"
 SERP_API_KEY = "bccb5398af513a4b65beb318d3891c679fbe3ea71364e93af6f4643fac41b55d"
 
 client = Groq(api_key=API_KEY)
-log_path = r'C:\Users\Legion\Documents\AI issues investigator\logu.log'
+log_path = r'C:\Users\Legion\Documents\AI issues investigator\dispatched_logs.log'
 
 try:
     with open(log_path, 'r', encoding="utf-8") as f:
@@ -45,37 +47,48 @@ except FileNotFoundError:
     sys.exit(1)
 
 prompt_root_cause = f"""
-Analyze the log file below and identify root causes for any detected issues and you must respond in json format following the structure that i give to you bellow. The response **must** be a structured JSON object where each **existing category** has its own detailed breakdown.
+You are a senior log analysis expert.
 
-### **Instructions:**
-1. **Extract unique log categories** present in the file:
-   - **Server** (e.g., Web server failures, load balancer issues)
-   - **Database** (e.g., slow queries, connection limits, replication lag)
-   - **Application** (e.g., unhandled exceptions, crashes, memory leaks)
-   - **System** (e.g., CPU overload, disk I/O bottlenecks, OS-level issues)
-   - **Network** (e.g., timeouts, packet loss, high latency)
+You will receive a list of **log clusters**, each identified by an `id` and a list of associated log messages.
 
-2. **For each detected category, return the following JSON structure:**
-3. **Output the response in JSON format only.**
-4. **Do not include any introductory text, explanations, or formatting outside the JSON structure.**
-5.**give me just the result without writing tou thoughts**
+### Your task:
+For **each cluster**, determine whether the logs indicate a system failure or critical issue.
+
+- If the cluster contains any log with level `ERROR` or `CRITICAL`, analyze it and identify the **most probable root cause**.
+- Otherwise, **do not include that cluster** in your response.
+
+For each relevant cluster, return a root cause in the appropriate category:
+- **Server**: web server failure, 5xx errors, load balancer issues.
+- **Database**: query failures, timeouts, replication issues.
+- **Application**: unhandled exceptions, crashes, logic bugs.
+- **System**: OS errors, memory/CPU issues, file system problems.
+- **Network**: timeouts, packet loss, latency spikes.
+
+### Instructions:
+- Use only the logs that include `"ERROR"` or `"CRITICAL"` for root cause determination.
+- Output your analysis in **valid JSON format** only.
+- **Do not include any explanations or extra text** outside the JSON structure.
+- If no cluster has issues, return an **empty JSON object** (`{{}}`).
+
+### Output format:
 ```json
 {{
   "CATEGORY_NAME": [
     {{
+      "Cluster ID": <cluster_id>,
       "Root Cause": "Describe the exact root cause concisely.",
       "Log Classification": "CATEGORY_NAME",
       "Explanation": {{
-        "Log Message": "Provide the critical error message from the log.",
+        "Log Message": "Highlight the most relevant error or critical log.",
         "Possible Causes": [
-          "List all potential reasons for the issue."
+          "List possible reasons for this issue."
         ],
         "Detailed Root Cause Analysis": {{
-          "Observations": "Explain what patterns are observed in the log.",
-          "Impact": "Describe how this issue affects the system or application.",
-          "Correlations": "Link this issue to other logs or system components."
+          "Observations": "What do the logs reveal?",
+          "Impact": "What is the impact on the system?",
+          "Correlations": "Link to any related logs or patterns."
         }},
-        "Conclusion": "Summarize why this is the most likely root cause."
+        "Conclusion": "Why is this the most likely root cause?"
       }}
     }}
   ]
@@ -85,16 +98,11 @@ Analyze the log file below and identify root causes for any detected issues and 
 
 
 
+
+
 ### **Log Entry:**
 {log_entry}
 """
-
-
-
-
-
-
-
 
 completion_root_cause = client.chat.completions.create(
         #model="llama3-70b-8192",
@@ -136,16 +144,10 @@ def extract_json(response_text):
     return None 
 
 
-
-
-
-
-
-
-
-
 timestamp = datetime.datetime.now().strftime("%Y%m%d%H%M%S")
-root_cause_file = f"root_cause_analysis_{timestamp}.json"
+#root_cause_file = f"root_cause_analysis_{timestamp}.json"
+directory="analysis"
+root_cause_file = f"{directory}/root_cause_analysis_{timestamp}.json"
 
 def clean_text(text):
     lines = text.split("\n")
@@ -166,6 +168,89 @@ else:
 def normalize_text(text):
     """Normalise les caractères spéciaux en ASCII."""
     return unicodedata.normalize('NFKD', text).encode('ASCII', 'ignore').decode('utf-8')
+
+
+def is_log_already_processed_llm(log_entry, client):
+    """
+    Uses a LLM to compare the current root cause to previously stored root causes
+    in the category-specific table. Returns True if a similar one is found.
+    """
+    try:
+        db_path = os.path.abspath("logs_memory.db")
+        conn = sqlite3.connect(db_path)
+        cursor = conn.cursor()
+
+        # Extract root cause and category
+        new_root_cause = log_entry.get("Root Cause", "").strip()
+        category = log_entry.get("Log Classification", "").strip().lower()  # Ex: "system", "server"
+
+        if not new_root_cause or not category:
+            print("⚠️ Missing root cause or category in log entry.")
+            return False
+
+        # Map to the correct table name
+        table_name = f"processed_logs_{category}"
+        cursor.execute(f"SELECT root_cause, recommendation FROM {table_name}")
+        rows = cursor.fetchall()
+        past_root_causes = [row[0] for row in rows]
+        recommendations = [row[1] for row in rows]
+        conn.close()
+
+        # 🧪 Debug print
+        print(f"\n🔍 New Root Cause:\n{new_root_cause}\n")
+        print(f"📦 Past Root Causes in '{table_name}' ({len(past_root_causes)} found):")
+
+        if not past_root_causes:
+            return False
+
+        prompt = f"""
+
+You are an expert in log root cause analysis.
+
+Your task is to determine whether the following **new root cause** is semantically equivalent to **any** of the previously seen root causes.
+
+---
+
+🆕 New Root Cause:
+"{new_root_cause}"
+
+📂 Previously Recorded Root Causes:
+{json.dumps(past_root_causes, indent=2)}
+
+---
+
+### Rules:
+- Two root causes are considered **equivalent** if they describe the same underlying issue, even with different wording.
+- Be strict: respond "True" only if the meaning is clearly the same.
+- Respond "False" if it's uncertain, ambiguous, or different.
+- Your answer **must be either** `True` or `False`, with **no explanation**.
+- give me the final result true or false without the </think>
+
+### Final Answer:True or False nothing else you don't give me anything else i want just true or false 
+"""
+
+
+        response = client.chat.completions.create(
+            model="deepseek-r1-distill-llama-70b",
+            messages=[{"role": "user", "content": prompt}],
+            temperature=0.6,
+            max_tokens=4096,
+            top_p=0.95
+        )
+
+        result = response.choices[0].message.content.strip().lower()
+        print(f"🧠 LLM Response: {result}")
+        if result=="true":
+            print(recommendations[0])
+
+        return result == "true"
+
+    except Exception as e:
+        print(f"⚠️ Error in is_log_already_processed_llm: {e}")
+        return False
+
+
+
 
 class HubAgent(Agent):
     def __init__(self, queues):
@@ -196,8 +281,13 @@ class HubAgent(Agent):
 
             if normalized_category in self.queues:
                 for log_entry in logs: 
-                    self.queues[normalized_category].put(log_entry)
-                    print(f"📤 Log envoyé à {normalized_category}Agent")
+                    if not is_log_already_processed_llm(log_entry, client):
+                        self.queues[normalized_category].put(log_entry)
+                        print(f"📤 Log envoyé à {normalized_category}Agent")
+                    else:
+                        print(f"♻️ Log ignoré (déjà traité - cache hit).")
+
+                   
             else:
                 print(f"⚠️ Aucune queue trouvée pour {normalized_category}")
 
