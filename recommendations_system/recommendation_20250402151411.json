@@ -1,0 +1,77 @@
+{
+    "Recommendation": {
+        "title": "Resolve Memory Exhaustion Due to Out-of-Memory Error",
+        "steps": [
+            {
+                "step": 1,
+                "action": "Analyze Current Memory Usage",
+                "tools": [
+                    "htop",
+                    "free -h"
+                ],
+                "description": "Use these tools to identify which processes are consuming excessive memory and understand the current memory usage patterns."
+            },
+            {
+                "step": 2,
+                "action": "Limit Process Memory Usage",
+                "tools": [
+                    "cgroups"
+                ],
+                "description": "Configure cgroups to set memory limits for processes, preventing any single application from exhausting all available memory."
+            },
+            {
+                "step": 3,
+                "action": "Enable or Increase Swap Space",
+                "tools": [
+                    "swapon -s",
+                    "fallocate -l"
+                ],
+                "description": "Check if swap is enabled. If not, enable it and ensure it's sufficiently sized to act as a fallback when physical memory is depleted."
+            },
+            {
+                "step": 4,
+                "action": "Optimize Application Memory Usage",
+                "tools": [
+                    "Application-specific configuration tools"
+                ],
+                "description": "Review applications for memory leaks or inefficiencies. Adjust settings or work with developers to optimize memory usage."
+            },
+            {
+                "step": 5,
+                "action": "Perform System Maintenance",
+                "tools": [
+                    "logrotate",
+                    "journalctl --vacuum-time",
+                    "rm -rf /tmp/*"
+                ],
+                "description": "Regularly clean up old logs and temporary files to free up disk space, which can help reduce memory pressure."
+            },
+            {
+                "step": 6,
+                "action": "Increase Disk Space or Add Storage",
+                "tools": [
+                    "lsblk",
+                    "df -h"
+                ],
+                "description": "Check disk usage. If necessary, expand the disk size or mount additional storage to accommodate logs, temporary files, and swap."
+            },
+            {
+                "step": 7,
+                "action": "Monitor System for Memory Leaks",
+                "tools": [
+                    "sysdig"
+                ],
+                "description": "Use system monitoring tools to track memory usage over time and identify potential leaks or abnormal usage patterns."
+            },
+            {
+                "step": 8,
+                "action": "Consider Hardware Upgrade",
+                "tools": [
+                    "lshw",
+                    "dmidecode"
+                ],
+                "description": "If memory issues persist despite optimizations, evaluate the need for additional RAM or more powerful hardware."
+            }
+        ]
+    }
+}

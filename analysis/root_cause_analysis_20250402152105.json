@@ -1,0 +1,44 @@
+{
+    "Database": [
+        {
+            "Cluster ID": 1,
+            "Root Cause": "Database query error due to invalid data format in non-nullable column",
+            "Log Classification": "Database",
+            "Explanation": {
+                "Log Message": "[2025-01-01 10:55:00] ERROR - Data format error: Unexpected NULL in non-nullable column",
+                "Possible Causes": [
+                    "Invalid data insertion",
+                    "Schema mismatch",
+                    "Data validation failure"
+                ],
+                "Detailed Root Cause Analysis": {
+                    "Observations": "The log indicates a data format error where a non-nullable column received a NULL value.",
+                    "Impact": "This could lead to data inconsistency and application crashes.",
+                    "Correlations": "This error is likely related to data insertion or migration processes."
+                },
+                "Conclusion": "The error is caused by invalid data being inserted into a non-nullable column, indicating a database or application logic issue."
+            }
+        }
+    ],
+    "System": [
+        {
+            "Cluster ID": 2,
+            "Root Cause": "System out of memory error leading to process termination",
+            "Log Classification": "System",
+            "Explanation": {
+                "Log Message": "[2025-01-01 11:00:00] ERROR - Out of memory: Kill process 1234 (myapp)",
+                "Possible Causes": [
+                    "Memory leak",
+                    "High memory usage",
+                    "Incorrect memory allocation"
+                ],
+                "Detailed Root Cause Analysis": {
+                    "Observations": "The system ran out of memory, causing the termination of process 1234.",
+                    "Impact": "This affects system stability and can lead to service interruptions.",
+                    "Correlations": "This could be linked to increased load or a memory leak in the application."
+                },
+                "Conclusion": "The system experienced a critical memory shortage, likely due to a memory leak or excessive usage, leading to process termination."
+            }
+        }
+    ]
+}

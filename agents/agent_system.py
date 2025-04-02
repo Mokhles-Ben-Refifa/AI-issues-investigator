@@ -8,6 +8,9 @@ from agno.agent import Agent
 from multiprocessing import Queue
 import sqlite3
 import hashlib
+from agents.RAG.system.rag_system import initialize_rag_chain, query_rag_chain
+from dotenv import load_dotenv
+load_dotenv()
 
 
 class SystemAgent(Agent):
@@ -16,15 +19,16 @@ class SystemAgent(Agent):
         self.queue = queue
         self.logs_directory = "logs_processed_system"
         self.recommendations_directory = "recommendations_system"
+        self.rag_chain = initialize_rag_chain("agents/RAG/system/system_doc.md")
 
         os.makedirs(self.logs_directory, exist_ok=True)
         os.makedirs(self.recommendations_directory, exist_ok=True)
 
         self.client = Groq(api_key="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")
-        #self.serp_api_key = "424558b7399112915fbefbb834dab8bb9c95d638623681c75decd9b9fd2a0100"
+        self.serp_api_key = "424558b7399112915fbefbb834dab8bb9c95d638623681c75decd9b9fd2a0100"
 
         
-        self.serp_api_key = "bccb5398af513a4b65beb318d3891c679fbe3ea71364e93af6f4643fac41b55d"
+        #self.serp_api_key = "bccb5398af513a4b65beb318d3891c679fbe3ea71364e93af6f4643fac41b55d"
 
     def listen_for_logs(self):
         print("🚀 SystemAgent en attente de logs...")
@@ -74,6 +78,7 @@ class SystemAgent(Agent):
     def generate_recommendation(self, root_cause, explanation):
         search_query = f"Comment résoudre {root_cause}? Explication: {explanation}"
         search_results = self.search_google(search_query)
+        rag_info = self.rag_chain.run(f"How to resolve this system issue: {root_cause}")
 
         if not search_results:
             top_results = "Aucun résultat pertinent trouvé."
@@ -88,13 +93,20 @@ class SystemAgent(Agent):
                     ### **Log Analysis:**
                     {explanation}
 
+                    ### **Internal Documentation (RAG Knowledge):**
+                    {rag_info if rag_info else "No internal knowledge retrieved."}
+
+      
                     ### **Task:**
                     As a **system expert**, your role is to:
                     1. Identify the detected failure or anomaly in the **system component**.
                     2. Provide a **detailed technical recommendation** to resolve the issue.
                     3. If no immediate solution is available, suggest **advanced diagnostic steps** (e.g., log verification, hardware tests, system commands).
                     4. Reference best practices and commonly used tools (e.g., `dmesg`, `journalctl`, `syslog`).
-                    5. replace /n with return to new line 
+                    5. **Limit your response to the top 2-3 most critical steps only.** These should be the highest-impact and most common actions to resolve the issue.
+                    6. Use both internal documentation and web search results to recommend a solution.
+
+
 
                     ### **Web Results Overview:**
                     {top_results}

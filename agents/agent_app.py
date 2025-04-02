@@ -8,6 +8,9 @@ from agno.agent import Agent
 from multiprocessing import Queue
 import sqlite3
 import hashlib
+from agents.RAG.application.rag_app import initialize_rag_chain, query_rag_chain
+from dotenv import load_dotenv
+load_dotenv()
 
 class ApplicationAgent(Agent):
     def __init__(self, queue):
@@ -15,15 +18,16 @@ class ApplicationAgent(Agent):
         self.queue = queue
         self.logs_directory = "logs_processed_application"
         self.recommendations_directory = "recommendations_application"
+        self.rag_chain = initialize_rag_chain("agents/RAG/application/app_doc.md")
 
         os.makedirs(self.logs_directory, exist_ok=True)
         os.makedirs(self.recommendations_directory, exist_ok=True)
 
         self.client = Groq(api_key="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")
-        #self.serp_api_key = "424558b7399112915fbefbb834dab8bb9c95d638623681c75decd9b9fd2a0100"
+        self.serp_api_key = "424558b7399112915fbefbb834dab8bb9c95d638623681c75decd9b9fd2a0100"
 
         
-        self.serp_api_key = "bccb5398af513a4b65beb318d3891c679fbe3ea71364e93af6f4643fac41b55d"
+        #self.serp_api_key = "bccb5398af513a4b65beb318d3891c679fbe3ea71364e93af6f4643fac41b55d"
 
     def listen_for_logs(self):
         print("🚀 applicationAgent en attente de logs...")
@@ -73,6 +77,7 @@ class ApplicationAgent(Agent):
     def generate_recommendation(self, root_cause, explanation):
         search_query = f"Comment résoudre {root_cause}? Explication: {explanation}"
         search_results = self.search_google(search_query)
+        rag_info = self.rag_chain.run(f"How to resolve this application issue: {root_cause}")
 
         if not search_results:
             top_results = "Aucun résultat pertinent trouvé."
@@ -86,6 +91,10 @@ class ApplicationAgent(Agent):
 
                     ### **Log Analysis:**
                     {explanation}
+                    ### **Internal Documentation (RAG Knowledge):**
+                    {rag_info if rag_info else "No internal knowledge retrieved."}
+
+             
 
                     ### **Task:**
                     As an **application expert**, your role is to:
@@ -93,7 +102,8 @@ class ApplicationAgent(Agent):
                     2. Provide a **detailed technical recommendation** to resolve the issue.
                     3. If no immediate solution is available, suggest **advanced troubleshooting steps** (e.g., reviewing application logs, debugging code, checking dependencies, monitoring system resource usage).
                     4. Reference best practices and commonly used tools (e.g., `log4j`, `ELK Stack`, `New Relic`, `Sentry`, `Grafana`, `Jaeger` for tracing).
-
+                    5. **Limit your response to the top 2-3 most critical steps only.** These should be the highest-impact and most common actions to resolve the issue.
+                    6. Use both internal documentation and web search results to recommend a solution.
                     ### **Web Results Overview:**
                     {top_results}
 

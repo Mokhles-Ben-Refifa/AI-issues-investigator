@@ -1,0 +1,61 @@
+{
+    "Recommendation": {
+        "title": "Resolve Server Overload Due to High CPU Usage and Excessive Connections",
+        "steps": [
+            {
+                "step": 1,
+                "action": "Analyze CPU Usage with Monitoring Tools",
+                "tools": [
+                    "top",
+                    "htop",
+                    "Task Manager"
+                ],
+                "description": "Identify processes consuming excessive CPU to detect potential issues like infinite loops or resource-intensive tasks."
+            },
+            {
+                "step": 2,
+                "action": "Optimize Server Code and Queries",
+                "tools": [
+                    "Code review tools",
+                    "Database query analyzers"
+                ],
+                "description": "Fix infinite loops, optimize database queries, and implement caching to reduce CPU load."
+            },
+            {
+                "step": 3,
+                "action": "Adjust Nginx Worker Connections Setting",
+                "tools": [
+                    "Nginx configuration editor"
+                ],
+                "description": "Increase the worker_connections value in Nginx to handle more connections and prevent overload."
+            },
+            {
+                "step": 4,
+                "action": "Implement Load Balancing",
+                "tools": [
+                    "Load balancer configuration",
+                    "Reverse proxy setup"
+                ],
+                "description": "Distribute traffic across multiple servers to avoid overloading a single server."
+            },
+            {
+                "step": 5,
+                "action": "Cache Static Content",
+                "tools": [
+                    "Varnish",
+                    "Redis"
+                ],
+                "description": "Reduce server load by caching static requests, minimizing the need for repeated processing."
+            },
+            {
+                "step": 6,
+                "action": "Monitor Server Performance",
+                "tools": [
+                    "Nagios",
+                    "Zabbix"
+                ],
+                "description": "Continuously monitor CPU usage and connections to proactively manage server performance and prevent future overloads."
+            }
+        ]
+    }
+}

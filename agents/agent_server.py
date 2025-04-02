@@ -8,12 +8,21 @@ from agno.agent import Agent
 from multiprocessing import Queue
 import sqlite3
 import hashlib
+
+from agents.RAG.server.rag_server import initialize_rag_chain, query_rag_chain
+
+from dotenv import load_dotenv
+load_dotenv()
+
+
 class ServerAgent(Agent):
     def __init__(self, queue):
         super().__init__()
         self.queue = queue
         self.logs_directory = "logs_processed_server"  # Dossier où enregistrer les logs
         self.recommendations_directory = "recommendations_server"  # Dossier pour les recommandations
+        self.rag_chain = initialize_rag_chain("agents/RAG/server/server_doc.md")
+
 
         if not os.path.exists(self.logs_directory):
             os.makedirs(self.logs_directory)
@@ -21,10 +30,10 @@ class ServerAgent(Agent):
             os.makedirs(self.recommendations_directory)
 
         self.client = Groq(api_key="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")
-        #self.serp_api_key = "424558b7399112915fbefbb834dab8bb9c95d638623681c75decd9b9fd2a0100"
+        self.serp_api_key = "424558b7399112915fbefbb834dab8bb9c95d638623681c75decd9b9fd2a0100"
 
         
-        self.serp_api_key = "bccb5398af513a4b65beb318d3891c679fbe3ea71364e93af6f4643fac41b55d"
+        #self.serp_api_key = "bccb5398af513a4b65beb318d3891c679fbe3ea71364e93af6f4643fac41b55d"
 
     def listen_for_logs(self):
         """Écoute les messages envoyés par HubAgent."""
@@ -94,6 +103,9 @@ class ServerAgent(Agent):
         """Génère une recommandation basée sur la cause du problème."""
         search_query = f"Comment résoudre {root_cause}? Explication: {explanation}"
         search_results = self.search_google(search_query)
+        # Appel à RAG pour récupérer les infos internes
+        rag_info = self.rag_chain.run(f"How to resolve this server issue: {root_cause}")
+
 
         if not search_results:
             top_results = "Aucun résultat pertinent trouvé."
@@ -101,47 +113,52 @@ class ServerAgent(Agent):
             top_results = "\n".join([result.get("snippet", "Pas de description") for result in search_results])
 
         prompt_recommendation = f"""
-                            ### **Server Diagnostic**
-                            The system has identified the following root cause:
-                            **Root Cause:** "{root_cause}"
+        ### **Server Diagnostic**
+        The system has identified the following root cause:
+        **Root Cause:** "{root_cause}"
 
-                            ### **Log Analysis:**
-                            {explanation}
+        ### **Log Analysis:**
+        {explanation}
 
-                            ### **Task:**
-                            As a **server expert**, your role is to:
-                            1. Identify the detected failure or anomaly in the **server infrastructure**.
-                            2. Provide a **detailed technical recommendation** to resolve the issue.
-                            3. If no immediate solution is available, suggest **advanced troubleshooting steps** (e.g., checking system logs, resource usage, server configuration).
-                            4. Reference best practices and commonly used tools (e.g., `systemctl`, `journalctl`, `top`, `htop`, `netstat`, `nginx/apache logs`).
-                            5. Don't include anything other than the recommendation.
+        ### **Internal Documentation (RAG Knowledge):**
+        {rag_info if rag_info else "No internal knowledge retrieved."}
 
-                            ### **Web Results Overview:**
-                            {top_results}
+        ### **Web Results Overview:**
+        {top_results}
 
-                            ### **Expected Format:**
-                            Respond **only** in JSON format with the following structure:
-                            ```json
-                            {{
-                                "Recommendation": {{
-                                    "title": "Short Summary of the Solution",
-                                    "steps": [
-                                        {{
-                                            "step": 1,
-                                            "action": "Describe the first troubleshooting step",
-                                            "tools": ["Relevant command/tool if applicable"],
-                                            "description": "Explain why this step is necessary."
-                                        }},
-                                        {{
-                                            "step": 2,
-                                            "action": "Describe the second troubleshooting step",
-                                            "tools": ["Another relevant command/tool"],
-                                            "description": "Explain why this step is necessary."
-                                        }},
-                                        ...
-                                    ]
-                                }}
-                            }}
+        ### **Task:**
+        As a **server expert**, your role is to:
+        1. Use both internal documentation and web search results to recommend a solution.
+        2. Provide a **structured technical recommendation** to fix the issue.
+        3. Include detailed steps, tools, and best practices.
+        4. **Limit your response to the top 2-3 most critical steps only.** These should be the highest-impact and most common actions to resolve the issue.
+
+        5. Don’t include anything else other than the JSON recommendation.
+
+
+        ### **Expected Format:**
+        Respond **only** in JSON format: 
+        ```json
+        {{
+            "Recommendation": {{
+                "title": "Short Summary of the Solution",
+                "steps": [
+                    {{
+                        "step": 1,
+                        "action": "Describe the first troubleshooting step",
+                        "tools": ["Relevant command/tool if applicable"],
+                        "description": "Explain why this step is necessary."
+                    }},
+                    {{
+                        "step": 2,
+                        "action": "Describe the second troubleshooting step",
+                        "tools": ["Another relevant command/tool"],
+                        "description": "Explain why this step is necessary."
+                    }}
+                ]
+            }}
+        }}
+
                             ```
         """
 

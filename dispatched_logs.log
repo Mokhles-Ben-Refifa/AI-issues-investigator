@@ -2,55 +2,11 @@
   "clusters": [
     {
       "id": 0,
-      "description": "Database connection timeout and reconnection",
+      "description": "Performance and memory issues leading to process termination",
       "logs": [
-        "[2025-03-24 09:12:05] INFO  - Server started successfully on port 8080",
-        "[2025-03-24 09:12:10] ERROR - Failed to connect to database: Timeout expired",
-        "[2025-03-24 09:12:15] WARNING - Retrying database connection in 5 seconds...",
-        "[2025-03-24 09:12:20] INFO  - Database reconnected successfully"
-      ]
-    },
-    {
-      "id": 1,
-      "description": "High CPU usage and worker restart",
-      "logs": [
-        "[2025-03-24 09:13:00] ERROR - CPU usage exceeded 95% for 2 minutes",
-        "[2025-03-24 09:13:10] INFO  - Restarting worker process due to resource constraints"
-      ]
-    },
-    {
-      "id": 2,
-      "description": "High memory consumption and application crash",
-      "logs": [
-        "[2025-03-24 09:14:00] WARNING - High memory consumption detected in application service",
-        "[2025-03-24 09:14:05] DEBUG - Garbage collection triggered",
-        "[2025-03-24 09:14:15] ERROR - Application crashed due to null pointer exception",
-        "[2025-03-24 09:14:20] INFO  - Application service restarted successfully"
-      ]
-    },
-    {
-      "id": 3,
-      "description": "API request errors and exception",
-      "logs": [
-        "[2025-03-24 09:15:00] INFO  - GET /api/user/profile returned 200 OK",
-        "[2025-03-24 09:15:05] INFO  - POST /api/user/update returned 500 Internal Server Error",
-        "[2025-03-24 09:15:10] ERROR - Unhandled exception in /api/user/update: KeyError 'email'"
-      ]
-    },
-    {
-      "id": 4,
-      "description": "Network issues and DNS restart",
-      "logs": [
-        "[2025-03-24 09:15:30] WARNING - Packet loss detected on eth0 interface",
-        "[2025-03-24 09:15:40] ERROR - DNS resolution failed for api.example.com",
-        "[2025-03-24 09:15:50] INFO  - DNS service restarted"
-      ]
-    },
-    {
-      "id": 5,
-      "description": "New user registration",
-      "logs": [
-        "[2025-03-24 09:16:00] DEBUG - New user registered: id=10234"
+        "[2025-01-01 10:50:00] WARNING - Query took 4500ms to execute",
+        "[2025-01-01 10:55:00] ERROR - Data format error: Unexpected NULL in non-nullable column",
+        "[2025-01-01 11:00:00] ERROR - Out of memory: Kill process 1234 (myapp)"
       ]
     }
   ]

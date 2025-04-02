@@ -1,0 +1,61 @@
+{
+    "Recommendation": {
+        "title": "Resolve Network Connectivity Issues",
+        "steps": [
+            {
+                "step": 1,
+                "action": "Check if the service is running and listening on the correct port",
+                "tools": [
+                    "systemctl",
+                    "netstat",
+                    "ss"
+                ],
+                "description": "This step ensures the service is operational and reachable."
+            },
+            {
+                "step": 2,
+                "action": "Test network connectivity using ping and traceroute",
+                "tools": [
+                    "ping",
+                    "traceroute"
+                ],
+                "description": "Identifies if there are network issues or packet loss."
+            },
+            {
+                "step": 3,
+                "action": "Inspect DNS settings and consider switching DNS servers",
+                "tools": [
+                    "resolvectl",
+                    "nslookup"
+                ],
+                "description": "Resolves potential DNS resolution problems."
+            },
+            {
+                "step": 4,
+                "action": "Check firewall rules for any blocking configurations",
+                "tools": [
+                    "iptables",
+                    "ufw"
+                ],
+                "description": "Ensures the firewall isn't blocking necessary traffic."
+            },
+            {
+                "step": 5,
+                "action": "Perform packet capture analysis",
+                "tools": [
+                    "tcpdump",
+                    "Wireshark"
+                ],
+                "description": "Helps diagnose where communication is failing."
+            },
+            {
+                "step": 6,
+                "action": "Restart the router or server if issues persist",
+                "tools": [
+                    "Reboot command"
+                ],
+                "description": "Resolves temporary issues that a restart can fix."
+            }
+        ]
+    }
+}

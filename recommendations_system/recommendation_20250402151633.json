@@ -1,0 +1,66 @@
+{
+    "Recommendation": {
+        "title": "Resolve Out of Memory Error",
+        "steps": [
+            {
+                "step": 1,
+                "action": "Monitor Memory Usage",
+                "tools": [
+                    "htop",
+                    "free"
+                ],
+                "description": "Use tools like htop or free to monitor real-time memory usage and identify if the application is consuming excessive memory."
+            },
+            {
+                "step": 2,
+                "action": "Check for Memory Leaks",
+                "tools": [
+                    "Profiling tools"
+                ],
+                "description": "Investigate if there's a memory leak by using profiling tools or checking application behavior over time."
+            },
+            {
+                "step": 3,
+                "action": "Limit Process Memory Usage",
+                "tools": [
+                    "cgroups"
+                ],
+                "description": "Configure cgroups to set memory limits for the application to prevent it from exhausting system memory."
+            },
+            {
+                "step": 4,
+                "action": "Enable Swap Space",
+                "tools": [
+                    "swap space configuration"
+                ],
+                "description": "Enable or increase swap space to provide a fallback when physical RAM is depleted."
+            },
+            {
+                "step": 5,
+                "action": "Optimize Application",
+                "tools": [
+                    "Code review"
+                ],
+                "description": "Review and optimize the application code to improve memory efficiency and fix leaks."
+            },
+            {
+                "step": 6,
+                "action": "Analyze Logs",
+                "tools": [
+                    "journalctl",
+                    "application logs"
+                ],
+                "description": "Examine system and application logs to understand the context and frequency of OOM errors."
+            },
+            {
+                "step": 7,
+                "action": "Increase Hardware Resources",
+                "tools": [
+                    "Add RAM",
+                    "Increase storage"
+                ],
+                "description": "Consider adding more RAM or storage if the system consistently runs low on memory."
+            }
+        ]
+    }
+}

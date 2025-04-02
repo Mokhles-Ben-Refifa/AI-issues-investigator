@@ -1,0 +1,69 @@
+{
+    "Recommendation": {
+        "title": "Resolve Out of Memory Error",
+        "steps": [
+            {
+                "step": 1,
+                "action": "Check Memory Usage",
+                "tools": [
+                    "free -h",
+                    "htop"
+                ],
+                "description": "Identify which processes are using excessive memory to determine the root cause."
+            },
+            {
+                "step": 2,
+                "action": "Optimize Application Memory Usage",
+                "tools": [
+                    "Valgrind"
+                ],
+                "description": "Inspect application code for memory leaks or inefficiencies and apply fixes."
+            },
+            {
+                "step": 3,
+                "action": "Limit Process Memory with cgroups",
+                "tools": [
+                    "cgcreate",
+                    "cgset"
+                ],
+                "description": "Set memory limits for processes to prevent excessive consumption."
+            },
+            {
+                "step": 4,
+                "action": "Enable Swap Space",
+                "tools": [
+                    "fallocate",
+                    "mkswap",
+                    "swapon"
+                ],
+                "description": "Configure swap space to serve as an additional memory buffer."
+            },
+            {
+                "step": 5,
+                "action": "Increase Physical Memory",
+                "tools": [
+                    "Hardware upgrade"
+                ],
+                "description": "Consider adding more RAM if memory demands exceed current capacity."
+            },
+            {
+                "step": 6,
+                "action": "Analyze Logs",
+                "tools": [
+                    "journalctl",
+                    "dmesg"
+                ],
+                "description": "Review system logs to identify patterns leading to memory exhaustion."
+            },
+            {
+                "step": 7,
+                "action": "Terminate Unnecessary Processes",
+                "tools": [
+                    "pkill",
+                    "killall"
+                ],
+                "description": "Stop any non-essential processes to free up memory."
+            }
+        ]
+    }
+}
